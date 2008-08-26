@@ -1,3 +1,1 @@
-* if the sheet has no data, it's save string should be empty
-* the spreadsheet doesn't seem to be loading in the save string correctly
-* change the sleep during read_file into something better
+* To get the socialcalc.py file to implement js toolbar activities through xocom.

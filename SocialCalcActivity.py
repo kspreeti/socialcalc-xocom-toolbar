@@ -5,6 +5,13 @@ import gtk
 import gobject
 import hulahop
 hulahop.startup(os.path.join(env.get_profile_path(), 'gecko'))
+
+
+from sugar.activity.activity import Activity, ActivityToolbox, EditToolbar
+import toolbar
+from toolbar import SpreadSheetActivityToolbar, SpreadsheetEditToolbar, ViewToolbar
+from sugar.activity,activity import get_bundle_path
+
 from XOCom import XOCom
 
 class SocialCalcActivity (activity.Activity):
@@ -21,7 +28,15 @@ class SocialCalcActivity (activity.Activity):
         toolbox.show()
 
         self.set_canvas( self.xocom.create_webview() )
+        activity_toolbar_ext = SpreadSheetActivityToolbar(toolbox, self.set_canvas, self)
 
+        self._edit_toolbar = SpreadsheetEditToolbar(self, self._edit_toolbar, set_canvas)
+        toolbox.add_toolbar(_('Edit'),self._edit_toolbar)
+        self._edit_toolbar.show()
+
+        view_toolbar = ViewToolbar (self.set_canvas)
+        self.set_canvas.show()
+    
     def write_file(self, filename):
         content = self.xocom.send_to_browser('write')
         if content:
